@@ -95,6 +95,46 @@ npm run dev       # auto-restart on file changes (nodemon)
 ```
 The API listens on `http://localhost:3000` by default.
 
+## Deploy to Render
+
+This project can run on Render as a Node web service, but it still needs a MySQL database hosted externally because Render does not provide a managed MySQL service.
+
+### 1. Create the web service
+1. Push the repo to GitHub.
+2. In Render, create a new Web Service from the repository.
+3. Render will use [render.yaml](render.yaml) or you can set the service manually.
+
+### 2. Set environment variables
+Add these in the Render dashboard:
+
+- `DB_HOST`
+- `DB_PORT`
+- `DB_USER`
+- `DB_PASSWORD`
+- `DB_NAME`
+- `GITHUB_TOKEN` optional, but recommended
+- `CACHE_TTL_MINUTES` optional
+
+Render injects `PORT` automatically, and the app already reads `process.env.PORT`.
+
+### 3. Initialize the database
+Run the schema once against your MySQL database:
+
+```bash
+npm run db:init
+```
+
+If your MySQL database is already hosted externally, run the init command from your local machine or any CI job that can reach the database.
+
+### 4. Confirm the live URL
+After deployment, Render will give you a public URL like:
+
+```text
+https://your-service-name.onrender.com
+```
+
+Use that URL as your submission's live deployed API URL.
+
 ## API Reference
 
 ### Analyze a profile
