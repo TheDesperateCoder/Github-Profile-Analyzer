@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Profile Analyzer</title>
+    <meta
+      name="description"
+      content="Analyze any public GitHub profile, view stats, and save insights instantly."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">GitHub Profile Analyzer</p>
+          <h1>Enter a username and run a full profile analysis.</h1>
+          <p class="lede">
+            See repo stats, language usage, follower ratios, and a saved
+            analysis in one shot. Try <strong>octocat</strong> or your own GitHub handle.
+          </p>
+
+          <form class="search-card" id="profile-form">
+            <label class="field-label" for="username">GitHub username</label>
+            <div class="field-row">
+              <input
+                id="username"
+                name="username"
+                type="text"
+                placeholder="TheDesperateCoder"
+                autocomplete="off"
+                spellcheck="false"
+                required
+              />
+              <button type="submit" id="analyze-btn">Analyze</button>
+            </div>
+            <div class="chips">
+              <button class="chip" type="button" data-username="octocat">octocat</button>
+              <button class="chip" type="button" data-username="TheDesperateCoder">TheDesperateCoder</button>
+              <button class="chip" type="button" data-username="torvalds">torvalds</button>
+            </div>
+            <p class="status" id="status">Type a username to start.</p>
+
+            <div class="recent-searches-card">
+              <div class="recent-searches-head">
+                <span>Recent searches</span>
+                <p>Tap any username to rerun the analysis.</p>
+              </div>
+              <div class="recent-searches-list" id="recent-searches"></div>
+            </div>
+          </form>
+        </div>
+
+        <aside class="spotlight">
+          <div class="spotlight-card">
+            <p class="spotlight-label">What you get</p>
+            <ul>
+              <li>Live GitHub profile fetch</li>
+              <li>Repo stars, forks, and language breakdown</li>
+              <li>Saved profile data from MySQL</li>
+            </ul>
+          </div>
+          <div class="orb orb-a"></div>
+          <div class="orb orb-b"></div>
+        </aside>
+      </section>
+
+      <section class="results" aria-live="polite">
+        <div class="results-header">
+          <div>
+            <p class="section-kicker">Analysis result</p>
+            <h2 id="result-title">No profile analyzed yet.</h2>
+          </div>
+          <div class="result-badge" id="result-badge">Idle</div>
+        </div>
+
+        <div class="profile-panel hidden" id="profile-panel">
+          <div class="profile-head">
+            <img id="avatar" alt="Profile avatar" />
+            <div>
+              <h3 id="display-name"></h3>
+              <p id="handle"></p>
+              <a id="profile-link" href="#" target="_blank" rel="noreferrer">View GitHub profile</a>
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <article><span>Repos</span><strong id="stat-repos">0</strong></article>
+            <article><span>Followers</span><strong id="stat-followers">0</strong></article>
+            <article><span>Stars</span><strong id="stat-stars">0</strong></article>
+            <article><span>Forks</span><strong id="stat-forks">0</strong></article>
+          </div>
+
+          <div class="detail-grid">
+            <div class="detail-card">
+              <span>Most used language</span>
+              <strong id="most-language">-</strong>
+            </div>
+            <div class="detail-card">
+              <span>Top starred repo</span>
+              <strong id="top-repo">-</strong>
+            </div>
+            <div class="detail-card">
+              <span>Follower/following ratio</span>
+              <strong id="ratio">-</strong>
+            </div>
+            <div class="detail-card">
+              <span>Account age</span>
+              <strong id="age">-</strong>
+            </div>
+          </div>
+
+          <div class="breakdown-card">
+            <div class="breakdown-head">
+              <span>Language breakdown</span>
+              <p id="cached-note"></p>
+            </div>
+            <div class="breakdown-list" id="language-breakdown"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <template id="language-pill-template">
+      <div class="language-pill">
+        <span></span>
+        <strong></strong>
+      </div>
+    </template>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
