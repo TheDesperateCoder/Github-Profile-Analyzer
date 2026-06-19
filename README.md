@@ -135,6 +135,50 @@ https://your-service-name.onrender.com
 
 Use that URL as your submission's live deployed API URL.
 
+## Deploy to Railway
+
+Railway also works well for this project. It can run the Node API and host MySQL either through Railway's database plugin or through an external MySQL provider.
+
+### 1. Create the project
+1. Push the repo to GitHub.
+2. In Railway, create a new project from the GitHub repository.
+3. Railway will detect the Node app through `package.json`.
+
+### 2. Add a MySQL database
+You have two options:
+
+- Use Railway's MySQL plugin if available on your plan/workspace.
+- Or connect Railway to an external MySQL database.
+
+### 3. Set environment variables
+Add these in the Railway variables section:
+
+- `DB_HOST`
+- `DB_PORT`
+- `DB_USER`
+- `DB_PASSWORD`
+- `DB_NAME`
+- `GITHUB_TOKEN` optional, but recommended
+- `CACHE_TTL_MINUTES` optional
+
+Railway sets `PORT` automatically, and the app already reads `process.env.PORT`.
+
+### 4. Initialize the database
+Run the schema once against your MySQL database:
+
+```bash
+npm run db:init
+```
+
+### 5. Copy the public URL
+After deployment, Railway will give you a public URL like:
+
+```text
+https://your-service.up.railway.app
+```
+
+Use that URL as your submission's live deployed API URL.
+
 ## API Reference
 
 ### Analyze a profile
